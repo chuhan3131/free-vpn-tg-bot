@@ -13,7 +13,7 @@ from config import BOT_TOKEN, KEYS_COUNTER
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
-counter_lock = threading.Lock()
+counter_lock = asyncio.Lock()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -73,9 +73,7 @@ async def vpn_cmd(message: types.Message):
         )
 
         if response.status_code != 200:
-            await msg.edit_text(
-                f"API error: <code>{response.status_code}</code>", parse_mode="HTML"
-            )
+            await msg.edit_text(f"API error: <code>{response.status_code}</code>", parse_mode='HTML')
             return
 
         response_data = response.json()
@@ -99,7 +97,7 @@ async def vpn_cmd(message: types.Message):
 
             await msg.edit_text(result_text, parse_mode="HTML")
 
-            with counter_lock:
+            async with counter_lock:
                 current_keys = read_keys_count()
                 new_keys = current_keys + 1
                 write_keys_count(new_keys)
@@ -107,13 +105,11 @@ async def vpn_cmd(message: types.Message):
         else:
             await msg.edit_text(
                 f"error: <code>{response_data.get('message', 'unknown error')}</code>",
-                parse_mode="HTML",
+                parse_mode='HTML'
             )
 
     except Exception as e:
-        await msg.edit_text(
-            f"error during generation: <code>{str(e)}</code>", parse_mode="HTML"
-        )
+        await msg.edit_text(f"error during generation: <code>{str(e)}</code>", parse_mode='HTML')
 
 
 @dp.message(Command("donate"))
