@@ -1,14 +1,13 @@
 import random
 import asyncio
 import logging
-import requests
-import threading
+import aiohttp
+import aiofiles
 from datetime import datetime
 from aiogram.filters import Command
 from aiogram import Bot, Dispatcher, types
 
-from config import BOT_TOKEN, KEYS_COUNTER
-
+from config import BOT_TOKEN, KEYS_COUNTER, PUBLIC_KEY
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
@@ -23,28 +22,28 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def read_keys_count():
+async def read_keys_count() -> int:
     try:
-        with open(KEYS_COUNTER, "r", encoding="utf-8") as f:
-            content = f.read().strip()
+        async with aiofiles.open(KEYS_COUNTER, "r", encoding="utf-8") as f:
+            content = (await f.read()).strip()
         return int(content) if content.isdigit() else 0
     except FileNotFoundError:
-        with open(KEYS_COUNTER, "r", encoding="utf-8") as f:
-            f.write("0")
+        async with aiofiles.open(KEYS_COUNTER, "w", encoding="utf-8") as f:
+            await f.write("0")
         return 0
     except ValueError:
         return 0
 
 
-def write_keys_count(value):
-    with open(KEYS_COUNTER, "w", encoding="utf-8") as f:
-        f.write(str(value))
+async def write_keys_count(value: int) -> None:
+    async with aiofiles.open(KEYS_COUNTER, "w", encoding="utf-8") as f:
+        await f.write(str(value))
 
 
 @dp.message(Command("start"))
 async def start_cmd(message: types.Message):
     name = message.from_user.first_name or "friend"
-    keys = read_keys_count()
+    keys = await read_keys_count()
 
     await message.answer(
         f"hi {name}\n\n"
@@ -55,6 +54,30 @@ async def start_cmd(message: types.Message):
     )
 
 
+async def make_request(user_id: int) -> dict:
+    async with aiohttp.ClientSession() as session:
+        json_data = {
+            "public_key": PUBLIC_KEY,
+            "user_tg_id": user_id,
+        }
+        
+        headers = {"User-Agent": "chuhan/1.0"}
+        
+        async with session.post(
+            "https://vpn-telegram.com/api/v1/key-activate/free-key",
+            headers=headers,
+            json=json_data,
+            timeout=aiohttp.ClientTimeout(total=10)
+        ) as response:
+            
+            if response.status != 200:
+                error_text = await response.text()
+                logger.error(f"API error {response.status}: {error_text}")
+                return {"error": f"API error: {response.status}"}
+            
+            return await response.json()
+
+
 @dp.message(Command("vpn"))
 async def vpn_cmd(message: types.Message):
     msg = await message.answer("generating a key...")
@@ -62,21 +85,11 @@ async def vpn_cmd(message: types.Message):
     try:
         user_id = random.randint(100_000_000, 999_999_999)
 
-        response = requests.post(
-            "https://vpn-telegram.com/api/v1/key-activate/free-key",
-            headers={"User-Agent": "chuhan/1.0"},
-            json={
-                "public_key": "b7a92b4cd1a2ced29e06059c61f624be",
-                "user_tg_id": user_id,
-            },
-            timeout=10,
-        )
-
-        if response.status_code != 200:
-            await msg.edit_text(f"API error: <code>{response.status_code}</code>", parse_mode='HTML')
+        response_data = await make_request(user_id)
+        
+        if "error" in response_data:
+            await msg.edit_text(f"{response_data['error']}", parse_mode='HTML')
             return
-
-        response_data = response.json()
 
         if response_data.get("result"):
             timestamp = response_data["data"]["finish_at"]
@@ -98,18 +111,28 @@ async def vpn_cmd(message: types.Message):
             await msg.edit_text(result_text, parse_mode="HTML")
 
             async with counter_lock:
-                current_keys = read_keys_count()
+                current_keys = await read_keys_count()
                 new_keys = current_keys + 1
-                write_keys_count(new_keys)
+                await write_keys_count(new_keys)
 
         else:
+            error_msg = response_data.get('message', 'unknown error')
             await msg.edit_text(
-                f"error: <code>{response_data.get('message', 'unknown error')}</code>",
+                f"error: <code>{error_msg}</code>",
                 parse_mode='HTML'
             )
 
+    except asyncio.TimeoutError:
+        await msg.edit_text("error: <code>request timeout</code>", parse_mode='HTML')
+        logger.error("API request timeout")
+        
+    except aiohttp.ClientError as e:
+        await msg.edit_text(f"error: <code>network error</code>", parse_mode='HTML')
+        logger.error(f"Network error: {e}")
+        
     except Exception as e:
         await msg.edit_text(f"error during generation: <code>{str(e)}</code>", parse_mode='HTML')
+        logger.error(f"Unexpected error: {e}")
 
 
 @dp.message(Command("donate"))
