@@ -4,31 +4,28 @@ Get free VLESS, VMess, Trojan, and Shadowsocks VPN configs via Telegram.
 
 ## 🚀 Setup
 
-### Using uv (recommended)
+### Option 1: Using pip (simple)
+```bash
+pip install -r requirements.txt
+cp .env.example .env
+# Edit .env with your BOT_TOKEN
+python bot.py
+```
+
+### Option 2: Using uv (faster)
 ```bash
 # Install uv if needed
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Clone and run
-git clone https://github.com/chuhan3131/free-vpn-tg-bot.git
-cd free-vpn-tg-bot
 uv venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv pip install -r requirements.txt
 
-# Create .env file
 cp .env.example .env
 # Edit .env with your BOT_TOKEN
-
-# Run
 python bot.py
 ```
 
-### Using pip
-```bash
-pip install -r requirements.txt
-python bot.py
-```
 
 ## 📋 Commands
 
@@ -41,3 +38,10 @@ python bot.py
 - `bot.py` - Main bot code
 - `.env` - Configuration (create from `.env.example`)
 - `requirements.txt` - Dependencies
+
+---
+
+## ⭐ If you like this project, give it a star!
+- **Telegram DM:** [t.me/glattstyle](https://t.me/glattstyle)
+- **Telegram Blog:** [t.me/chuhandev](https://t.me/chuhandev)  
+- **Telegram Chat:** [t.me/chuhanchat](https://t.me/chuhanchat)
