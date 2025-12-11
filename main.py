@@ -1,5 +1,6 @@
 import random
 import asyncio
+import logging
 import requests
 import threading
 from datetime import datetime
@@ -11,7 +12,15 @@ from config import BOT_TOKEN, KEYS_COUNTER
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
+
 counter_lock = threading.Lock()
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("bot.log"), logging.StreamHandler()],
+)
+logger = logging.getLogger(__name__)
 
 
 def read_keys_count():
@@ -19,7 +28,11 @@ def read_keys_count():
         with open(KEYS_COUNTER, "r", encoding="utf-8") as f:
             content = f.read().strip()
         return int(content) if content.isdigit() else 0
-    except (FileNotFoundError, ValueError):
+    except FileNotFoundError:
+        with open(KEYS_COUNTER, "r", encoding="utf-8") as f:
+            f.write("0")
+        return 0
+    except ValueError:
         return 0
 
 
@@ -59,6 +72,12 @@ async def vpn_cmd(message: types.Message):
             timeout=10,
         )
 
+        if response.status_code != 200:
+            await msg.edit_text(
+                f"API error: <code>{response.status_code}</code>", parse_mode="HTML"
+            )
+            return
+
         response_data = response.json()
 
         if response_data.get("result"):
@@ -79,7 +98,7 @@ async def vpn_cmd(message: types.Message):
             )
 
             await msg.edit_text(result_text, parse_mode="HTML")
-            
+
             with counter_lock:
                 current_keys = read_keys_count()
                 new_keys = current_keys + 1
@@ -87,11 +106,14 @@ async def vpn_cmd(message: types.Message):
 
         else:
             await msg.edit_text(
-                f"error: {response_data.get('message', 'unknown error')}"
+                f"error: <code>{response_data.get('message', 'unknown error')}</code>",
+                parse_mode="HTML",
             )
 
     except Exception as e:
-        await msg.edit_text(f"error during generation: {str(e)}")
+        await msg.edit_text(
+            f"error during generation: <code>{str(e)}</code>", parse_mode="HTML"
+        )
 
 
 @dp.message(Command("donate"))
@@ -108,14 +130,11 @@ async def donate_cmd(message: types.Message):
 @dp.message()
 async def any_message(message: types.Message):
     await message.answer(
-        "use the following commands:\n\n"
-        "/vpn - get a key\n"
-        "/donate - for donations"
+        "use the following commands:\n\n" "/vpn - get a key\n" "/donate - for donations"
     )
 
 
 async def main():
-    print("started")
     await dp.start_polling(bot)
 
 
