@@ -1,7 +1,9 @@
 # Telegram Bot with Free VPN Configs
 
-Get free VLESS, VMess, Trojan, and Shadowsocks VPN configs via Telegram.
+### Get free VLESS, VMess, Trojan, and Shadowsocks VPN configs via Telegram.
+![Bot Screenshot](https://github.com/user-attachments/assets/64636758-3533-4927-bf7c-21df32bb5576)
 
+**Live bot:** [t.me/chfreevpn_bot](https://t.me/chfreevpn_bot)
 ## 🚀 Setup
 
 ### Option 1: Using pip (simple)
