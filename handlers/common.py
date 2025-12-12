@@ -22,7 +22,8 @@ async def start_cmd(message: types.Message):
     await message.answer(
         f"hi {name}\n\n"
         "/vpn - get a key\n"
-        "/donate - for donations\n\n"
+        "/donate - for donations\n"
+        "/api - examples of use api\n\n"
         f"in total the bot issued <code>{keys}</code> keys",
         parse_mode="HTML",
     )
@@ -141,7 +142,10 @@ async def donate_cmd(message: types.Message):
 @router.message()
 async def any_message(message: types.Message):
     await message.answer(
-        "use the following commands:\n\n" "/vpn - get a key\n" "/donate - for donations"
+        "use the following commands:\n\n" 
+        "/vpn - get a key\n" 
+        "/donate - for donations"
+        "/api - examples of use api"
     )
 
 
