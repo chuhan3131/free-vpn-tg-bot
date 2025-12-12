@@ -11,7 +11,7 @@
 pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your BOT_TOKEN
-python bot.py
+python main.py
 ```
 
 ### Option 2: Using uv (faster)
@@ -25,7 +25,7 @@ uv pip install -r requirements.txt
 
 cp .env.example .env
 # Edit .env with your BOT_TOKEN
-python bot.py
+python main.py
 ```
 
 
@@ -34,6 +34,7 @@ python bot.py
 - `/start` - Show bot info
 - `/vpn` - Get VPN key
 - `/donate` - Support the project
+- `/api` - Examples of use api
 
 ## 📁 Files
 
