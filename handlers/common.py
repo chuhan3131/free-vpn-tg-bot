@@ -54,7 +54,7 @@ async def vpn_cmd(message: types.Message):
                 f"<b>key generated!</b>\n\n"
                 f"<b>config:\n</b><code>{config_url}</code>\n\n"
                 f"<b>valid until:</b> {date}\n"
-                f"<b>traffic:</b> {traffic} gb\n\n"
+                f"<b>traffic:</b> {traffic} GB\n\n"
             )
 
             await msg.edit_text(result_text, parse_mode="HTML")
