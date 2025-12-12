@@ -37,7 +37,7 @@ python bot.py
 
 ## 📁 Files
 
-- `bot.py` - Main bot code
+- `main.py` - Main bot code
 - `.env` - Configuration (create from `.env.example`)
 - `requirements.txt` - Dependencies
 
