@@ -60,21 +60,21 @@ async def make_request(user_id: int) -> dict:
             "public_key": PUBLIC_KEY,
             "user_tg_id": user_id,
         }
-        
+
         headers = {"User-Agent": "chuhan/1.0"}
-        
+
         async with session.post(
             "https://vpn-telegram.com/api/v1/key-activate/free-key",
             headers=headers,
             json=json_data,
-            timeout=aiohttp.ClientTimeout(total=10)
+            timeout=aiohttp.ClientTimeout(total=10),
         ) as response:
-            
+
             if response.status != 200:
                 error_text = await response.text()
                 logger.error(f"API error {response.status}: {error_text}")
                 return {"error": f"API error: {response.status}"}
-            
+
             return await response.json()
 
 
@@ -86,9 +86,9 @@ async def vpn_cmd(message: types.Message):
         user_id = random.randint(100_000_000, 999_999_999)
 
         response_data = await make_request(user_id)
-        
+
         if "error" in response_data:
-            await msg.edit_text(f"{response_data['error']}", parse_mode='HTML')
+            await msg.edit_text(f"{response_data['error']}", parse_mode="HTML")
             return
 
         if response_data.get("result"):
@@ -116,22 +116,21 @@ async def vpn_cmd(message: types.Message):
                 await write_keys_count(new_keys)
 
         else:
-            error_msg = response_data.get('message', 'unknown error')
-            await msg.edit_text(
-                f"error: <code>{error_msg}</code>",
-                parse_mode='HTML'
-            )
+            error_msg = response_data.get("message", "unknown error")
+            await msg.edit_text(f"error: <code>{error_msg}</code>", parse_mode="HTML")
 
     except asyncio.TimeoutError:
-        await msg.edit_text("error: <code>request timeout</code>", parse_mode='HTML')
+        await msg.edit_text("error: <code>request timeout</code>", parse_mode="HTML")
         logger.error("API request timeout")
-        
+
     except aiohttp.ClientError as e:
-        await msg.edit_text(f"error: <code>network error</code>", parse_mode='HTML')
+        await msg.edit_text(f"error: <code>network error</code>", parse_mode="HTML")
         logger.error(f"Network error: {e}")
-        
+
     except Exception as e:
-        await msg.edit_text(f"error during generation: <code>{str(e)}</code>", parse_mode='HTML')
+        await msg.edit_text(
+            f"error during generation: <code>{str(e)}</code>", parse_mode="HTML"
+        )
         logger.error(f"Unexpected error: {e}")
 
 
