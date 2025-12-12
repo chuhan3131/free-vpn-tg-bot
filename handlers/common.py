@@ -94,6 +94,50 @@ async def donate_cmd(message: types.Message):
     await message.answer(donate_text, parse_mode="HTML", disable_web_page_preview=True)
 
 
+@router.message(Command("api"))
+async def donate_cmd(message: types.Message):
+    api_text = (
+    'the bot uses a public API to provide VPN configs, which can stop at any time :)\n\n'
+    '**examples of use:**\n'
+    '```\n'
+    'curl -X POST "https://vpn-telegram.com/api/v1/key-activate/free-key" -H "Content-Type: application/json" -d \'{\n'
+    '    "public_key": "b7a92b4cd1a2ced29e06059c61f624be",\n'
+    '    "user_tg_id": 123456789\n'
+    '  }\'\n'
+    '```\n'
+    '```python\n'
+    'import requests\n\n'
+    'response = requests.post(\n'
+    '    "https://vpn-telegram.com/api/v1/key-activate/free-key",\n'
+    '    json={\n'
+    '        "public_key": "b7a92b4cd1a2ced29e06059c61f624be",\n'
+    '        "user_tg_id": 123456789\n'
+    '    }\n'
+    ')\n'
+    'print(response.json())\n'
+    '```\n\n'
+    '**response from the server:**\n'
+    '```json\n'
+    '{\n'
+    '  "result": true,\n'
+    '  "data": {\n'
+    '    "key": "74aeff4d-6359-46b9-9a1c-8a1a020bad9f",\n'
+    '    "config_url": "https://vpn-telegram.com/config/74aeff4d-6359-46b9-9a1c-8a1a020bad9f",\n'
+    '    "traffic_limit": "5368709120", # byte limit\n'
+    '    "traffic_limit_gb": 5,\n'
+    '    "finish_at": "1767214800", # unix timestamp\n'
+    '    "activated_at": null,\n'
+    '    "status": "1",\n'
+    '    "status_text": "Активирован",\n'
+    '    "is_free": true\n'
+    '  }\n'
+    '}\n'
+    '```'
+    )
+
+    await message.answer(api_text, parse_mode="Markdown")
+
+
 @router.message()
 async def any_message(message: types.Message):
     await message.answer(
