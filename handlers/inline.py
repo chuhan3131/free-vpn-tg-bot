@@ -1,7 +1,7 @@
 from datetime import datetime
 import uuid
 import random
-
+import asyncio
 from aiogram import Router
 from aiogram.types import (
     InlineQuery,
@@ -9,8 +9,8 @@ from aiogram.types import (
     InputTextMessageContent,
 )
 
-from config import KEYS_COUNTER
 from utils.logger import logger
+from handlers.texts import get_text
 from utils.services import (
     counter_lock,
     read_keys_count,
@@ -23,43 +23,76 @@ router = Router()
 
 @router.inline_query()
 async def inline_vpn_handler(inline_query: InlineQuery):
-    user_id = random.randint(100_000_000, 999_999_999)
-    response_data = await make_request(user_id)
+    lang_code = inline_query.from_user.language_code
 
-    if response_data.get("result"):
-        timestamp = response_data["data"]["finish_at"]
-        dt = datetime.fromtimestamp(timestamp)
-        date = dt.strftime("%-d %b %Y, %H:%M").lower()
-        vpn_key = response_data["data"]["key"]
-        traffic = response_data["data"]["traffic_limit_gb"]
-        config_url = f"https://vpn-telegram.com/config/{vpn_key}"
+    try:
+        user_id = random.randint(100_000_000, 999_999_999)
+        response_data = await make_request(user_id)
 
+        if response_data.get("result"):
+            timestamp = response_data["data"]["finish_at"]
+            dt = datetime.fromtimestamp(timestamp)
+            date = dt.strftime("%d.%m.%Y, %H:%M")
+
+            vpn_key = response_data["data"]["key"]
+            traffic = response_data["data"]["traffic_limit_gb"]
+            config_url = f"https://vpn-telegram.com/config/{vpn_key}"
+
+            key_text = get_text(
+                lang_code, "key", config_url=config_url, date=date, traffic=traffic
+            )
+
+            result = InlineQueryResultArticle(
+                id=str(uuid.uuid4()),
+                title=get_text(lang_code, "inline_title"),
+                description=get_text(lang_code, "inline_description"),
+                input_message_content=InputTextMessageContent(
+                    message_text=key_text,
+                    parse_mode="HTML",
+                ),
+            )
+
+            async with counter_lock:
+                current_keys = await read_keys_count()
+                new_keys = current_keys + 1
+                await write_keys_count(new_keys)
+
+        else:
+            error_msg = response_data.get("message", "unknown error")
+            error_text = get_text(lang_code, "error", error_msg=error_msg)
+
+            result = InlineQueryResultArticle(
+                id=str(uuid.uuid4()),
+                title=get_text(lang_code, "inline_error_title"),
+                description=get_text(lang_code, "inline_error_description"),
+                input_message_content=InputTextMessageContent(
+                    message_text=error_text,
+                    parse_mode="HTML",
+                ),
+            )
+
+    except asyncio.TimeoutError:
+        error_text = get_text(lang_code, "error", error_msg="request timeout")
         result = InlineQueryResultArticle(
             id=str(uuid.uuid4()),
-            title="get free vpn!",
-            description="click to generate VPN configuration",
+            title=get_text(lang_code, "inline_error_title"),
+            description=get_text(lang_code, "inline_error_description"),
             input_message_content=InputTextMessageContent(
-                message_text=(
-                    f"<b>your config:</b>\n<code>{config_url}</code>\n\n"
-                    f"<b>valid until:</b> {date}\n"
-                    f"<b>traffic:</b> {traffic} GB"
-                ),
+                message_text=error_text,
                 parse_mode="HTML",
             ),
         )
+        logger.error("Inline query timeout")
 
-        async with counter_lock:
-            current_keys = await read_keys_count()
-            new_keys = current_keys + 1
-            await write_keys_count(new_keys)
-
-    else:
+    except Exception as e:
+        logger.error(f"Inline query error: {e}")
+        error_text = get_text(lang_code, "error", error_msg="internal server error")
         result = InlineQueryResultArticle(
             id=str(uuid.uuid4()),
-            title="error",
-            description="failed to generate VPN",
+            title=get_text(lang_code, "inline_error_title"),
+            description=get_text(lang_code, "inline_error_description"),
             input_message_content=InputTextMessageContent(
-                message_text="try again later.",
+                message_text=error_text,
                 parse_mode="HTML",
             ),
         )
