@@ -139,7 +139,3 @@ async def any_message(message: types.Message):
     lang_code = message.from_user.language_code
     any_message_text = get_text(lang_code, "any_message")
     await message.answer(any_message_text)
-
-
-def common_handlers(dp):
-    dp.include_router(router)
