@@ -1,12 +1,18 @@
-# Telegram Bot with Free VPN Configs
+# 🌐 **Telegram VPN Bot**
 
-### Get free VLESS, VMess, Trojan, and Shadowsocks VPN configs via Telegram.
-![Bot Screenshot](https://github.com/user-attachments/assets/64636758-3533-4927-bf7c-21df32bb5576)
+Get **free VLESS, VMess, Trojan, and Shadowsocks VPN configs** instantly via Telegram.
 
-**Live bot:** [t.me/chfreevpn_bot](https://t.me/chfreevpn_bot)
-## 🚀 Setup
+<img width="524" height="655" alt="изображение" src="https://github.com/user-attachments/assets/43314f2c-18c9-4227-a65f-d0c6d25134e2" />
 
-### Option 1: Using pip (simple)
+
+**💬 Live Bot:** [t.me/chfreevpn_bot](https://t.me/chfreevpn_bot)
+
+---
+
+## 🚀 **Setup**
+
+### 1️⃣ Using `pip` (Simple)
+
 ```bash
 pip install -r requirements.txt
 cp .env.example .env
@@ -14,7 +20,8 @@ cp .env.example .env
 python main.py
 ```
 
-### Option 2: Using uv (faster)
+### 2️⃣ Using `uv` (Faster)
+
 ```bash
 # Install uv if needed
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -28,23 +35,37 @@ cp .env.example .env
 python main.py
 ```
 
+---
 
-## 📋 Commands
+## 📋 **Commands**
 
-- `/start` - Show bot info
-- `/vpn` - Get VPN key
-- `/donate` - Support the project
-- `/api` - Examples of use api
-
-## 📁 Files
-
-- `main.py` - Main bot code
-- `.env` - Configuration (create from `.env.example`)
-- `requirements.txt` - Dependencies
+| Command   | Description               |
+| --------- | ------------------------- |
+| `/start`  | Show bot info             |
+| `/vpn`    | Get a VPN key             |
+| `/donate` | Support the project       |
+| `/api`    | Examples of using the API |
 
 ---
 
-## ⭐ If you like this project, give it a star!
-- **Telegram DM:** [t.me/glattstyle](https://t.me/glattstyle)
-- **Telegram Blog:** [t.me/chuhandev](https://t.me/chuhandev)  
-- **Telegram Chat:** [t.me/chuhanchat](https://t.me/chuhanchat)
+## 📁 **Project Files**
+
+| File / Folder      | Purpose                        |
+| ------------------ | ------------------------------ |
+| `main.py`          | Main bot code                  |
+| `config.py`        | Bot configuration              |
+| `.env.example`     | Example env file               |
+| `requirements.txt` | Python dependencies            |
+| `keys_counter.txt` | Counter for VPN keys           |
+| `handlers/`        | Bot command and event handlers |
+| `utils/`           | Utility functions              |
+
+---
+
+## ⭐ **Support & Community**
+
+If you like this project, give it a ⭐!
+
+* **Telegram DM:** [t.me/glattstyle](https://t.me/glattstyle)
+* **Telegram Blog:** [t.me/chuhandev](https://t.me/chuhandev)
+* **Telegram Chat:** [t.me/chuhanchat](https://t.me/chuhanchat)
