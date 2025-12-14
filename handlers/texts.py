@@ -19,7 +19,6 @@ russian = {
     "inline_check_title": "проверка VPN ключа",
     "inline_check_description": "нажмите чтобы узнать статус ключа",
     "inline_check_error_description": "не удалось проверить ключ",
-    "check_failed": "не удалось проверить ключ",
 }
 
 english = {
@@ -43,7 +42,6 @@ english = {
     "inline_check_title": "VPN key check",
     "inline_check_description": "click to check key status",
     "inline_check_error_description": "failed to check key",
-    "check_failed": "failed to check key",
 }
 
 uzbek = {
@@ -67,7 +65,6 @@ uzbek = {
     "inline_check_title": "VPN kalitni tekshirish",
     "inline_check_description": "kalit holatini bilish uchun bosing",
     "inline_check_error_description": "kalitni tekshirib bo'lmadi",
-    "check_failed": "kalitni tekshirib bo'lmadi",
 }
 
 ukrainian = {
@@ -91,7 +88,6 @@ ukrainian = {
     "inline_check_title": "перевірка VPN ключа",
     "inline_check_description": "натисніть щоб дізнатися статус ключа",
     "inline_check_error_description": "не вдалося перевірити ключ",
-    "check_failed": "не вдалося перевірити ключ",
 }
 
 spanish = {
@@ -115,7 +111,6 @@ spanish = {
     "inline_check_title": "verificación de clave VPN",
     "inline_check_description": "haz clic para verificar el estado de la clave",
     "inline_check_error_description": "no se pudo verificar la clave",
-    "check_failed": "no se pudo verificar la clave",
 }
 
 arabic = {
@@ -139,7 +134,6 @@ arabic = {
     "inline_check_title": "فحص مفتاح VPN",
     "inline_check_description": "انقر للتحقق من حالة المفتاح",
     "inline_check_error_description": "فشل في التحقق من المفتاح",
-    "check_failed": "فشل في التحقق من المفتاح",
 }
 
 chinese = {
@@ -163,7 +157,6 @@ chinese = {
     "inline_check_title": "VPN密钥检查",
     "inline_check_description": "点击查看密钥状态",
     "inline_check_error_description": "检查密钥失败",
-    "check_failed": "检查密钥失败",
 }
 
 
