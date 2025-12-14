@@ -31,7 +31,7 @@ async def get_key(user_id: int) -> dict:
 
 async def check_key(config_url: str) -> dict:
     headers = {
-        "User-Agent": "chuhan/1.0"
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0"
     }
 
     result = {"used_gb": None, "expires": None}
