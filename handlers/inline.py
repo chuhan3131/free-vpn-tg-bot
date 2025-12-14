@@ -11,12 +11,8 @@ from aiogram.types import (
 
 from utils.logger import logger
 from handlers.texts import get_text
-from utils.services import (
-    counter_lock,
-    read_keys_count,
-    write_keys_count,
-    make_request,
-)
+from utils.files import counter_lock, read_keys_count, write_keys_count
+from utils.api import get_key, check_key
 
 router = Router()
 
@@ -24,10 +20,44 @@ router = Router()
 @router.inline_query()
 async def inline_vpn_handler(inline_query: InlineQuery):
     lang_code = inline_query.from_user.language_code
+    query_text = inline_query.query.strip()
 
     try:
+        if query_text.startswith("https://vpn-telegram.com/config/"):
+            result_data = await check_key(query_text)
+
+            if result_data["used_gb"] is None:
+                title = get_text(lang_code, 'inline_check_title')
+                description = get_text(lang_code, 'inline_check_error_description')
+                text = get_text(lang_code, "error", error_msg="Failed to check key")
+            else:
+                traffic = result_data['used_gb']
+                left = max(0, 5 - traffic)
+                expires = result_data['expires']
+                
+                title = get_text(lang_code, 'inline_check_title')
+                description = get_text(lang_code, 'inline_check_description')
+                text = get_text(lang_code, 'check',
+                    traffic=traffic, 
+                    left=left, 
+                    expires=expires
+                )
+
+            result = InlineQueryResultArticle(
+                id=str(uuid.uuid4()),
+                title=title,
+                description=description,
+                input_message_content=InputTextMessageContent(
+                    message_text=text,
+                    parse_mode="HTML",
+                ),
+            )
+            
+            await inline_query.answer([result], cache_time=1)
+            return
+
         user_id = random.randint(100_000_000, 999_999_999)
-        response_data = await make_request(user_id)
+        response_data = await get_key(user_id)
 
         if response_data.get("result"):
             timestamp = response_data["data"]["finish_at"]
@@ -44,8 +74,8 @@ async def inline_vpn_handler(inline_query: InlineQuery):
 
             result = InlineQueryResultArticle(
                 id=str(uuid.uuid4()),
-                title=get_text(lang_code, "inline_title"),
-                description=get_text(lang_code, "inline_description"),
+                title=get_text(lang_code, "inline_get_title"),
+                description=get_text(lang_code, "inline_get_description"),
                 input_message_content=InputTextMessageContent(
                     message_text=key_text,
                     parse_mode="HTML",
@@ -64,7 +94,7 @@ async def inline_vpn_handler(inline_query: InlineQuery):
             result = InlineQueryResultArticle(
                 id=str(uuid.uuid4()),
                 title=get_text(lang_code, "inline_error_title"),
-                description=get_text(lang_code, "inline_error_description"),
+                description=get_text(lang_code, "inline_get_error_description"),
                 input_message_content=InputTextMessageContent(
                     message_text=error_text,
                     parse_mode="HTML",
@@ -76,7 +106,7 @@ async def inline_vpn_handler(inline_query: InlineQuery):
         result = InlineQueryResultArticle(
             id=str(uuid.uuid4()),
             title=get_text(lang_code, "inline_error_title"),
-            description=get_text(lang_code, "inline_error_description"),
+            description=get_text(lang_code, "inline_get_error_description"),
             input_message_content=InputTextMessageContent(
                 message_text=error_text,
                 parse_mode="HTML",
@@ -90,7 +120,7 @@ async def inline_vpn_handler(inline_query: InlineQuery):
         result = InlineQueryResultArticle(
             id=str(uuid.uuid4()),
             title=get_text(lang_code, "inline_error_title"),
-            description=get_text(lang_code, "inline_error_description"),
+            description=get_text(lang_code, "inline_get_error_description"),
             input_message_content=InputTextMessageContent(
                 message_text=error_text,
                 parse_mode="HTML",

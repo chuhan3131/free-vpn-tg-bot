@@ -2,12 +2,12 @@ import random
 import asyncio
 from datetime import datetime
 from aiogram.filters import Command
-from aiogram import Dispatcher, types, Router
+from aiogram import types, Router
 
 from utils.logger import logger
 from handlers.texts import get_text
-from config import BOT_TOKEN
-from utils.services import counter_lock, read_keys_count, write_keys_count, make_request
+from utils.files import counter_lock, read_keys_count, write_keys_count
+from utils.api import get_key, check_key
 
 router = Router()
 
@@ -31,7 +31,7 @@ async def vpn_cmd(message: types.Message):
 
     try:
         user_id = random.randint(100_000_000, 999_999_999)
-        response_data = await make_request(user_id)
+        response_data = await get_key(user_id)
 
         if "error" in response_data:
             error_text = get_text(lang_code, "error", error_msg=response_data["error"])
@@ -132,6 +132,53 @@ async def api_cmd(message: types.Message):
     )
 
     await message.answer(api_text, parse_mode="Markdown")
+
+
+@router.message(Command("check"))
+async def check_cmd(message: types.Message):
+    lang_code = message.from_user.language_code
+    args = message.text.split(maxsplit=1)
+
+    if len(args) < 2:
+        await message.answer(
+            get_text(lang_code, "check_error"),
+            parse_mode="HTML"
+        )
+        return
+
+    config_url = args[1]
+
+    generation_text = get_text(lang_code, "checking")
+    status_message = await message.answer(
+        generation_text,
+        parse_mode="HTML"
+    )
+
+    result = await check_key(config_url)
+
+    if result["used_gb"] is None or result["expires"] is None:
+        await status_message.edit_text(
+            get_text(lang_code, "check_failed"),
+            parse_mode="HTML"
+        )
+        return
+
+    traffic = result["used_gb"]
+    left = max(0, 5 - traffic)
+    expires = result["expires"]
+
+    check_text = get_text(
+        lang_code,
+        "check",
+        traffic=traffic,
+        left=left,
+        expires=expires,
+    )
+
+    await status_message.edit_text(
+        check_text,
+        parse_mode="HTML"
+    )
 
 
 @router.message()
