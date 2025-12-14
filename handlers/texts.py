@@ -114,7 +114,7 @@ spanish = {
 }
 
 arabic = {
-    ""start": lambda name, keys: f"مرحباً {name}\n\n/vpn - احصل على مفتاح\n/donate - للتبرعات\n/api - أمثلة استخدام API\n/check !!مفتاح!! - التحقق من حالة المفتاح\n\nإجمالاً أصدر البوت <code>{keys}</code> مفتاح",
+    "start": lambda name, keys: f"مرحباً {name}\n\n/vpn - احصل على مفتاح\n/donate - للتبرعات\n/api - أمثلة استخدام API\n/check !!مفتاح!! - التحقق من حالة المفتاح\n\nإجمالاً أصدر البوت <code>{keys}</code> مفتاح",
     "generation": "جاري إنشاء المفتاح...",
     "key": lambda config_url, date, traffic: f"<b>مفتاحك:</b>\n<code>{config_url}</code>\n\n<b>صالح حتى:</b> {date}\n<b>الحركة المرورية:</b> {traffic} جيجابايت",
     "error": lambda error_msg: f"خطأ: <code>{error_msg}</code>",
