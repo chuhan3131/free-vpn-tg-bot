@@ -2,7 +2,8 @@
 
 Get **free VLESS, VMess, Trojan, and Shadowsocks VPN configs** instantly via Telegram.
 
-<img width="524" height="655" alt="изображение" src="https://github.com/user-attachments/assets/43314f2c-18c9-4227-a65f-d0c6d25134e2" />
+<img width="519" height="683" alt="изображение" src="https://github.com/user-attachments/assets/0adf12e0-0c2d-4213-8e20-bec9b9855c49" />
+
 
 
 **💬 Live Bot:** [t.me/chfreevpn_bot](https://t.me/chfreevpn_bot)
