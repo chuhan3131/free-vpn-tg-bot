@@ -4,12 +4,14 @@ from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN
 from handlers.common import router as common_router
 from handlers.inline import router as inline_router
+from handlers.callbacks import router as callbacks_router
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
 
 async def main():
+    dp.include_router(callbacks_router)
     dp.include_router(common_router)
     dp.include_router(inline_router)
     
