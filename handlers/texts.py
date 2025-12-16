@@ -1,9 +1,9 @@
 russian = {
-    "start": lambda name, keys: f"привет {name}\n\n/vpn - получить ключ\n/donate - для донатов\n/api - примеры использования API\n/check [ключ] - проверить статус ключа\n/instruction - инструкция для подключения VPN\n\nвсего бот выдал <code>{keys}</code> ключей",
+    "start": lambda name, keys: f"привет {name}\n\n/vpn - получить ключ\n/check [ключ] - проверить статус ключа\n/instruction - инструкция для подключения VPN\n/donate - для донатов\n/api - примеры использования API\n\nвсего бот выдал <code>{keys}</code> ключей",
     "generation": "генерация ключа...",
     "key": lambda config_url, date, traffic: f"<b>твой ключ:</b>\n<code>{config_url}</code>\n\n<b>действителен до:</b> {date}\n<b>трафик:</b> {traffic} ГБ",
     "error": lambda error_msg: f"ошибка: <code>{error_msg}</code>",
-    "any_message": "используй следующие команды:\n\n/vpn - получить ключ\n/donate - для донатов\n/api - примеры использования API\n/check [ключ] - проверить статус ключа\n/instruction - инструкция для подключения VPN",
+    "any_message": "используй следующие команды:\n\n/vpn - получить ключ\n/check [ключ] - проверить статус ключа\n/instruction - инструкция для подключения VPN\n/donate - для донатов\n/api - примеры использования API",
     "donate": "поддержать проект",
     "api_intro": "бот использует публичный API для предоставления VPN конфигов, который может прекратить работу в любой момент :)",
     "api_examples": "примеры использования:",
@@ -28,11 +28,11 @@ russian = {
 }
 
 english = {
-    "start": lambda name, keys: f"hi {name}\n\n/vpn - get a key\n/donate - for donations\n/api - examples of use API\n/check [key] - check key status\n/instruction - connection instructions\n\nin total the bot issued <code>{keys}</code> keys",
+    "start": lambda name, keys: f"hi {name}\n\n/vpn - get a key\n/check [key] - check key status\n/instruction - connection instructions\n/donate - for donations\n/api - examples of use API\n\nin total the bot issued <code>{keys}</code> keys",
     "generation": "generating a key...",
     "key": lambda config_url, date, traffic: f"<b>your key:</b>\n<code>{config_url}</code>\n\n<b>valid until:</b> {date}\n<b>traffic:</b> {traffic} GB",
     "error": lambda error_msg: f"error: <code>{error_msg}</code>",
-    "any_message": "use the following commands:\n\n/vpn - get a key\n/donate - for donations\n/api - examples of use API\n/check [key] - check key status\n/instruction - connection instructions",
+    "any_message": "use the following commands:\n\n/vpn - get a key\n/check [key] - check key status\n/instruction - connection instructions\n/donate - for donations\n/api - examples of use API",
     "donate": "support the project",
     "api_intro": "the bot uses a public API to provide VPN configs, which can stop at any time :)",
     "api_examples": "examples of use:",
@@ -57,11 +57,11 @@ english = {
 }
 
 uzbek = {
-    "start": lambda name, keys: f"salom {name}\n\n/vpn - kalit olish\n/donate - xayriya uchun\n/api - API dan foydalanish misollari\n/check [kalit] - kalit holatini tekshirish\n/instruction - ulanish bo'yicha ko'rsatma\n\njami bot <code>{keys}</code> ta kalit berdi",
+    "start": lambda name, keys: f"salom {name}\n\n/vpn - kalit olish\n/check [kalit] - kalit holatini tekshirish\n/instruction - ulanish bo'yicha ko'rsatma\n/donate - xayriya uchun\n/api - API dan foydalanish misollari\n\njami bot <code>{keys}</code> ta kalit berdi",
     "generation": "kalit yaratilmoqda...",
     "key": lambda config_url, date, traffic: f"<b>sizning kalitingiz:</b>\n<code>{config_url}</code>\n\n<b>amal qilish muddati:</b> {date}\n<b>trafik:</b> {traffic} GB",
     "error": lambda error_msg: f"xato: <code>{error_msg}</code>",
-    "any_message": "quyidagi buyruqlardan foydalaning:\n\n/vpn - kalit olish\n/donate - xayriya uchun\n/api - API dan foydalanish misollari\n/check [kalit] - kalit holatini tekshirish\n/instruction - ulanish bo'yicha ko'rsatma",
+    "any_message": "quyidagi buyruqlardan foydalaning:\n\n/vpn - kalit olish\n/check [kalit] - kalit holatini tekshirish\n/instruction - ulanish bo'yicha ko'rsatma\n/donate - xayriya uchun\n/api - API dan foydalanish misollari",
     "donate": "loyihani qo'llab-quvvatlash",
     "api_intro": "bot VPN konfiguratsiyalarni taqdim etish uchun ochiq API dan foydalanadi, u har qanday vaqtda to'xtashi mumkin :)",
     "api_examples": "foydalanish misollari:",
@@ -86,11 +86,11 @@ uzbek = {
 }
 
 ukrainian = {
-    "start": lambda name, keys: f"привіт {name}\n\n/vpn - отримати ключ\n/donate - для донатів\n/api - приклади використання API\n/check [ключ] - перевірити статус ключа\n/instruction - інструкція для підключення VPN\n\nвсього бот видав <code>{keys}</code> ключів",
+    "start": lambda name, keys: f"привіт {name}\n\n/vpn - отримати ключ\n/check [ключ] - перевірити статус ключа\n/instruction - інструкція для підключення VPN\n/donate - для донатів\n/api - приклади використання API\n\nвсього бот видав <code>{keys}</code> ключів",
     "generation": "генерація ключа...",
     "key": lambda config_url, date, traffic: f"<b>твій ключ:</b>\n<code>{config_url}</code>\n\n<b>дійсний до:</b> {date}\n<b>трафік:</b> {traffic} ГБ",
     "error": lambda error_msg: f"помилка: <code>{error_msg}</code>",
-    "any_message": "використовуй наступні команди:\n\n/vpn - отримати ключ\n/donate - для донатів\n/api - приклади використання API\n/check [ключ] - перевірити статус ключа\n/instruction - інструкція для підключення VPN",
+    "any_message": "використовуй наступні команди:\n\n/vpn - отримати ключ\n/check [ключ] - перевірити статус ключа\n/instruction - інструкція для підключення VPN\n/donate - для донатів\n/api - приклади використання API",
     "donate": "підтримати проект",
     "api_intro": "бот використовує публічний API для надання VPN конфігів, який може припинити роботу в будь-який момент :)",
     "api_examples": "приклади використання:",
@@ -115,11 +115,11 @@ ukrainian = {
 }
 
 spanish = {
-    "start": lambda name, keys: f"hola {name}\n\n/vpn - obtener una clave\n/donate - para donaciones\n/api - ejemplos de uso de API\n/check [clave] - verificar estado de clave\n/instruction - instrucción para conectar VPN\n\nen total el bot ha emitido <code>{keys}</code> claves",
+    "start": lambda name, keys: f"hola {name}\n\n/vpn - obtener una clave\n/check [clave] - verificar estado de clave\n/instruction - instrucción para conectar VPN\n/donate - para donaciones\n/api - ejemplos de uso de API\n\nen total el bot ha emitido <code>{keys}</code> claves",
     "generation": "generando clave...",
     "key": lambda config_url, date, traffic: f"<b>tu clave:</b>\n<code>{config_url}</code>\n\n<b>válida hasta:</b> {date}\n<b>tráfico:</b> {traffic} GB",
     "error": lambda error_msg: f"error: <code>{error_msg}</code>",
-    "any_message": "usa los siguientes comandos:\n\n/vpn - obtener una clave\n/donate - para donaciones\n/api - ejemplos de uso de API\n/check [clave] - verificar estado de clave\n/instruction - instrucción para conectar VPN",
+    "any_message": "usa los siguientes comandos:\n\n/vpn - obtener una clave\n/check [clave] - verificar estado de clave\n/instruction - instrucción para conectar VPN\n/donate - para donaciones\n/api - ejemplos de uso de API",
     "donate": "apoyar el proyecto",
     "api_intro": "el bot utiliza una API pública para proporcionar configuraciones VPN, que puede dejar de funcionar en cualquier momento :)",
     "api_examples": "ejemplos de uso:",
@@ -144,11 +144,11 @@ spanish = {
 }
 
 arabic = {
-    "start": lambda name, keys: f"مرحباً {name}\n\n/vpn - احصل على مفتاح\n/donate - للتبرعات\n/api - أمثلة استخدام API\n/check [مفتاح] - التحقق من حالة المفتاح\n/instruction - تعليمات الاتصال بـ VPN\n\nإجمالاً أصدر البوت <code>{keys}</code> مفتاح",
+    "start": lambda name, keys: f"مرحباً {name}\n\n/vpn - احصل على مفتاح\n/check [مفتاح] - التحقق من حالة المفتاح\n/instruction - تعليمات الاتصال بـ VPN\n/donate - للتبرعات\n/api - أمثلة استخدام API\n\nإجمالاً أصدر البوت <code>{keys}</code> مفتاح",
     "generation": "جاري إنشاء المفتاح...",
     "key": lambda config_url, date, traffic: f"<b>مفتاحك:</b>\n<code>{config_url}</code>\n\n<b>صالح حتى:</b> {date}\n<b>الحركة المرورية:</b> {traffic} جيجابايت",
     "error": lambda error_msg: f"خطأ: <code>{error_msg}</code>",
-    "any_message": "استخدم الأوامر التالية:\n\n/vpn - احصل على مفتاح\n/donate - للتبرعات\n/api - أمثلة استخدام API\n/check [مفتاح] - التحقق من حالة المفتاح\n/instruction - تعليمات الاتصال بـ VPN",
+    "any_message": "استخدم الأوامر التالية:\n\n/vpn - احصل على مفتاح\n/check [مفتاح] - التحقق من حالة المفتاح\n/instruction - تعليمات الاتصال بـ VPN\n/donate - للتبرعات\n/api - أمثلة استخدام API",
     "donate": "دعم المشروع",
     "api_intro": "يستخدم البوت واجهة برمجة تطبيقات عامة لتوفير تكوينات VPN، والتي قد تتوقف في أي وقت :)",
     "api_examples": "أمثلة الاستخدام:",
@@ -173,11 +173,11 @@ arabic = {
 }
 
 chinese = {
-    "start": lambda name, keys: f"你好 {name}\n\n/vpn - 获取密钥\n/donate - 捐赠\n/api - API使用示例\n/check [密钥] - 检查密钥状态\n/instruction - VPN连接说明\n\n机器人已累计发放 <code>{keys}</code> 个密钥",
+    "start": lambda name, keys: f"你好 {name}\n\n/vpn - 获取密钥\n/check [密钥] - 检查密钥状态\n/instruction - VPN连接说明\n/donate - 捐赠\n/api - API使用示例\n\n机器人已累计发放 <code>{keys}</code> 个密钥",
     "generation": "正在生成密钥...",
     "key": lambda config_url, date, traffic: f"<b>你的密钥:</b>\n<code>{config_url}</code>\n\n<b>有效期至:</b> {date}\n<b>流量:</b> {traffic} GB",
     "error": lambda error_msg: f"错误: <code>{error_msg}</code>",
-    "any_message": "使用以下命令:\n\n/vpn - 获取密钥\n/donate - 捐赠\n/api - API使用示例\n/check [密钥] - 检查密钥状态\n/instruction - VPN连接说明",
+    "any_message": "使用以下命令:\n\n/vpn - 获取密钥\n/check [密钥] - 检查密钥状态\n/instruction - VPN连接说明\n/donate - 捐赠\n/api - API使用示例",
     "donate": "支持项目",
     "api_intro": "机器人使用公共API提供VPN配置，该API可能随时停止工作 :)",
     "api_examples": "使用示例:",
@@ -203,11 +203,11 @@ chinese = {
 
 
 persian = {
-    "start": lambda name, keys: f"سلام {name}\n\n/vpn - دریافت کلید\n/donate - برای کمک مالی\n/api - نمونه‌های استفاده از API\n/check [کلید] - بررسی وضعیت کلید\n/instruction - راهنمای اتصال VPN\n\nدر مجموع ربات <code>{keys}</code> کلید صادر کرده است",
+    "start": lambda name, keys: f"سلام {name}\n\n/vpn - دریافت کلید\n/check [کلید] - بررسی وضعیت کلید\n/instruction - راهنمای اتصال VPN\n/donate - برای کمک مالی\n/api - نمونه‌های استفاده از API\n\nدر مجموع ربات <code>{keys}</code> کلید صادر کرده است",
     "generation": "در حال تولید کلید...",
     "key": lambda config_url, date, traffic: f"<b>کلید شما:</b>\n<code>{config_url}</code>\n\n<b>معتبر تا:</b> {date}\n<b>ترافیک:</b> {traffic} گیگابایت",
     "error": lambda error_msg: f"خطا: <code>{error_msg}</code>",
-    "any_message": "از دستورات زیر استفاده کنید:\n\n/vpn - دریافت کلید\n/donate - برای کمک مالی\n/api - نمونه‌های استفاده از API\n/check [کلید] - بررسی وضعیت کلید\n/instruction - راهنمای اتصال VPN",
+    "any_message": "از دستورات زیر استفاده کنید:\n\n/vpn - دریافت کلید\n/check [کلید] - بررسی وضعیت کلید\n/instruction - راهنمای اتصال VPN\n/donate - برای کمک مالی\n/api - نمونه‌های استفاده از API",
     "donate": "پشتیبانی از پروژه",
     "api_intro": "ربات از یک API عمومی برای ارائه پیکربندی‌های VPN استفاده می‌کند که ممکن است در هر زمان متوقف شود :)",
     "api_examples": "نمونه‌های استفاده:",
