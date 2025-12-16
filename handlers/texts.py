@@ -202,6 +202,35 @@ chinese = {
 }
 
 
+persian = {
+    "start": lambda name, keys: f"سلام {name}\n\n/vpn - دریافت کلید\n/donate - برای کمک مالی\n/api - نمونه‌های استفاده از API\n/check [کلید] - بررسی وضعیت کلید\n/instruction - راهنمای اتصال VPN\n\nدر مجموع ربات <code>{keys}</code> کلید صادر کرده است",
+    "generation": "در حال تولید کلید...",
+    "key": lambda config_url, date, traffic: f"<b>کلید شما:</b>\n<code>{config_url}</code>\n\n<b>معتبر تا:</b> {date}\n<b>ترافیک:</b> {traffic} گیگابایت",
+    "error": lambda error_msg: f"خطا: <code>{error_msg}</code>",
+    "any_message": "از دستورات زیر استفاده کنید:\n\n/vpn - دریافت کلید\n/donate - برای کمک مالی\n/api - نمونه‌های استفاده از API\n/check [کلید] - بررسی وضعیت کلید\n/instruction - راهنمای اتصال VPN",
+    "donate": "پشتیبانی از پروژه",
+    "api_intro": "ربات از یک API عمومی برای ارائه پیکربندی‌های VPN استفاده می‌کند که ممکن است در هر زمان متوقف شود :)",
+    "api_examples": "نمونه‌های استفاده:",
+    "api_response": "پاسخ از سرور:",
+    "key_generated": "کلید تولید شد!",
+    "inline_get_title": "دریافت VPN رایگان!",
+    "inline_get_description": "برای تولید پیکربندی VPN کلیک کنید",
+    "inline_error_title": "خطا",
+    "inline_get_error_description": "تولید VPN ناموفق بود",
+    "check_error": "لطفاً کلید را بعد از دستور مشخص کنید\n\nمثال:\n<code>/check https://vpn-telegram.com/config/...</code>",
+    "check": lambda traffic, left, expires: f"<b>استفاده شده:</b> {traffic} گیگابایت\n<b>باقی‌مانده:</b> {left} گیگابایت\n<b>معتبر تا:</b> {expires}",
+    "checking": "در حال بررسی کلید...",
+    "inline_check_title": "بررسی کلید VPN",
+    "inline_check_description": "برای بررسی وضعیت کلید کلیک کنید",
+    "inline_check_error_description": "بررسی کلید ناموفق بود",
+    "instruction": lambda name: f"{name}، پلتفرم خود را انتخاب کنید:",
+    "android": "به بازار Play بروید و برنامه hiddify را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "ios": "به App Store بروید و برنامه v2ray را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "windows": "به GitHub بروید و برنامه hiddify را دانلود کنید\n\nپس از نصب، فایل را باز کنید، در برنامه باز شده روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "macos": "به App Store بروید و برنامه streisand را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "linux": "به GitHub بروید و برنامه happ را دانلود کنید\n\nپس از نصب، فایل را باز کنید، در برنامه باز شده روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+}
+
 def get_text(lang_code: str = None, text_key: str = "generation", **kwargs) -> str:
 
     languages = {
@@ -212,6 +241,8 @@ def get_text(lang_code: str = None, text_key: str = "generation", **kwargs) -> s
         "es": spanish,
         "ar": arabic,
         "zh": chinese,
+        "fa": persian,
+        "ir": persian,
     }
 
     if not lang_code:
