@@ -8,6 +8,7 @@ from utils.logger import logger
 from handlers.texts import get_text
 from utils.files import counter_lock, read_keys_count, write_keys_count
 from utils.api import get_key, check_key
+from keyboards.instruction import instruction_kb
 
 router = Router()
 
@@ -179,6 +180,15 @@ async def check_cmd(message: types.Message):
         check_text,
         parse_mode="HTML"
     )
+
+
+@router.message(Command("instruction"))
+async def instruction_cmd(message: types.Message):
+    name = message.from_user.first_name or "hey"
+    lang_code = message.from_user.language_code
+
+    instruction_text = get_text(lang_code, "instruction", name=name)
+    await message.answer(instruction_text, reply_markup=instruction_kb)
 
 
 @router.message()
