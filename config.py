@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BOT_TOKEN = getenv("BOT_TOKEN") or ""
-KEYS_COUNTER = getenv("KEYS_COUNTER") or "keys_counter.txt"
+DATA_FILE = getenv("DATA_FILE") or "data.json"
+ADMIN_ID = int(getenv("ADMIN_ID")) or 8402669285
 PUBLIC_KEY = "b7a92b4cd1a2ced29e06059c61f624be"
 
 if not BOT_TOKEN:
