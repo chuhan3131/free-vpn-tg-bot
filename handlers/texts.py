@@ -20,11 +20,11 @@ russian = {
     "inline_check_description": "нажмите чтобы узнать статус ключа",
     "inline_check_error_description": "не удалось проверить ключ",
     "instruction": lambda name: f"{name}, выбери свою платформу:",
-    "android": "переходим в play market и скачиваем клиент hiddify\n\nпосле запуска клиента нажимаем на "+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения",
-    "ios": "переходим в app store и скачиваем клиент v2ray\n\nпосле запуска клиента нажимаем на "+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения",
-    "windows": "переходим на github и скачиваем клиент hiddify\n\nпосле установки открываем файл, в открывшемся клиенте нажимаем на "+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения",
-    "macos": "переходим в app store и скачиваем клиент streisand\n\nпосле запуска клиента нажимаем на "+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения",
-    "linux": "переходим на github и скачиваем клиент happ\n\nпосле установки открываем файл, в открывшемся клиенте нажимаем на "+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения",
+    "android": 'переходим в play market и скачиваем клиент hiddify\n\nпосле запуска клиента нажимаем на «+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения',
+    "ios": 'переходим в app store и скачиваем клиент v2ray\n\nпосле запуска клиента нажимаем на «+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения',
+    "windows": 'переходим на github и скачиваем клиент hiddify\n\nпосле установки открываем файл, в открывшемся клиенте нажимаем на «+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения',
+    "macos": 'переходим в app store и скачиваем клиент streisand\n\nпосле запуска клиента нажимаем на «+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения',
+    "linux": 'переходим на github и скачиваем клиент happ\n\nпосле установки открываем файл, в открывшемся клиенте нажимаем на «+" в правом верхнем углу\n\nдобавляем ссылку которую вы получили от бота, жмем кнопку подключения',
 }
 
 english = {
@@ -49,11 +49,11 @@ english = {
     "inline_check_description": "click to check key status",
     "inline_check_error_description": "failed to check key",
     "instruction": lambda name: f"{name}, select your platform:",
-    "android": "go to play market and download hiddify client\n\nafter launching the client, click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button",
-    "ios": "go to app store and download v2ray client\n\nafter launching the client, click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button",
-    "windows": "go to github and download hiddify client\n\nafter installation, open the file, in the opened client click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button",
-    "macos": "go to app store and download streisand client\n\nafter launching the client, click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button",
-    "linux": "go to github and download happ client\n\nafter installation, open the file, in the opened client click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button",
+    "android": 'go to play market and download hiddify client\n\nafter launching the client, click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button',
+    "ios": 'go to app store and download v2ray client\n\nafter launching the client, click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button',
+    "windows": 'go to github and download hiddify client\n\nafter installation, open the file, in the opened client click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button',
+    "macos": 'go to app store and download streisand client\n\nafter launching the client, click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button',
+    "linux": 'go to github and download happ client\n\nafter installation, open the file, in the opened client click on "+" in the top right corner\n\nadd the link you received from the bot, click the connect button',
 }
 
 uzbek = {
@@ -78,11 +78,11 @@ uzbek = {
     "inline_check_description": "kalit holatini bilish uchun bosing",
     "inline_check_error_description": "kalitni tekshirib bo'lmadi",
     "instruction": lambda name: f"{name}, platformangizni tanlang:",
-    "android": "play market-ga o'ting va hiddify mijozini yuklab oling\n\nmijozni ishga tushirgandan so'ng, yuqori o'ng burchakdagi "+" tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
-    "ios": "app store-ga o'ting va v2ray mijozini yuklab oling\n\nmijozni ishga tushirgandan so'ng, yuqori o'ng burchakdagi "+" tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
-    "windows": "github-ga o'ting va hiddify mijozini yuklab oling\n\no'rnatishdan so'ng, faylni oching, ochilgan mijozda yuqori o'ng burchakdagi "+" tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
-    "macos": "app store-ga o'ting va streisand mijozini yuklab oling\n\nmijozni ishga tushirgandan so'ng, yuqori o'ng burchakdagi "+" tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
-    "linux": "github-ga o'ting va happ mijozini yuklab oling\n\no'rnatishdan so'ng, faylni oching, ochilgan mijozda yuqori o'ng burchakdagi "+" tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
+    "android": "play market-ga o'ting va hiddify mijozini yuklab oling\n\nmijozni ishga tushirgandan so'ng, yuqori o'ng burchakdagi «+» tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
+    "ios": "app store-ga o'ting va v2ray mijozini yuklab oling\n\nmijozni ishga tushirgandan so'ng, yuqori o'ng burchakdagi «+» tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
+    "windows": "github-ga o'ting va hiddify mijozini yuklab oling\n\no'rnatishdan so'ng, faylni oching, ochilgan mijozda yuqori o'ng burchakdagi «+» tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
+    "macos": "app store-ga o'ting va streisand mijozini yuklab oling\n\nmijozni ishga tushirgandan so'ng, yuqori o'ng burchakdagi «+» tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
+    "linux": "github-ga o'ting va happ mijozini yuklab oling\n\no'rnatishdan so'ng, faylni oching, ochilgan mijozda yuqori o'ng burchakdagi «+» tugmasini bosing\n\nbotdan olgan havolangizni qo'shing, ulanish tugmasini bosing",
 }
 
 ukrainian = {
@@ -107,11 +107,11 @@ ukrainian = {
     "inline_check_description": "натисніть щоб дізнатися статус ключа",
     "inline_check_error_description": "не вдалося перевірити ключ",
     "instruction": lambda name: f"{name}, вибери свою платформу:",
-    "android": "переходимо в play market і завантажуємо клієнт hiddify\n\nпісля запуску клієнта натискаємо на "+" у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
-    "ios": "переходимо в app store і завантажуємо клієнт v2ray\n\nпісля запуску клієнта натискаємо на "+" у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
-    "windows": "переходимо на github і завантажуємо клієнт hiddify\n\nпісля встановлення відкриваємо файл, у відкритому клієнті натискаємо на "+" у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
-    "macos": "переходимо в app store і завантажуємо клієнт streisand\n\nпісля запуску клієнта натискаємо на "+" у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
-    "linux": "переходимо на github і завантажуємо клієнт happ\n\nпісля встановлення відкриваємо файл, у відкритому клієнті натискаємо на "+" у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
+    "android": "переходимо в play market і завантажуємо клієнт hiddify\n\nпісля запуску клієнта натискаємо на «+» у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
+    "ios": "переходимо в app store і завантажуємо клієнт v2ray\n\nпісля запуску клієнта натискаємо на «+» у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
+    "windows": "переходимо на github і завантажуємо клієнт hiddify\n\nпісля встановлення відкриваємо файл, у відкритому клієнті натискаємо на «+» у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
+    "macos": "переходимо в app store і завантажуємо клієнт streisand\n\nпісля запуску клієнта натискаємо на «+» у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
+    "linux": "переходимо на github і завантажуємо клієнт happ\n\nпісля встановлення відкриваємо файл, у відкритому клієнті натискаємо на «+» у правому верхньому куті\n\nдодаємо посилання яке ви отримали від бота, натискаємо кнопку підключення",
 }
 
 spanish = {
@@ -136,11 +136,11 @@ spanish = {
     "inline_check_description": "haz clic para verificar el estado de la clave",
     "inline_check_error_description": "no se pudo verificar la clave",
     "instruction": lambda name: f"{name}, selecciona tu plataforma:",
-    "android": "ve a play market y descarga el cliente hiddify\n\ndespués de iniciar el cliente, haz clic en "+" en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
-    "ios": "ve a app store y descarga el cliente v2ray\n\ndespués de iniciar el cliente, haz clic en "+" en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
-    "windows": "ve a github y descarga el cliente hiddify\n\ndespués de la instalación, abre el archivo, en el cliente abierto haz clic en "+" en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
-    "macos": "ve a app store y descarga el cliente streisand\n\ndespués de iniciar el cliente, haz clic en "+" en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
-    "linux": "ve a github y descarga el cliente happ\n\ndespués de la instalación, abre el archivo, en el cliente abierto haz clic en "+" en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
+    "android": "ve a play market y descarga el cliente hiddify\n\ndespués de iniciar el cliente, haz clic en «+» en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
+    "ios": "ve a app store y descarga el cliente v2ray\n\ndespués de iniciar el cliente, haz clic en «+» en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
+    "windows": "ve a github y descarga el cliente hiddify\n\ndespués de la instalación, abre el archivo, en el cliente abierto haz clic en «+» en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
+    "macos": "ve a app store y descarga el cliente streisand\n\ndespués de iniciar el cliente, haz clic en «+» en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
+    "linux": "ve a github y descarga el cliente happ\n\ndespués de la instalación, abre el archivo, en el cliente abierto haz clic en «+» en la esquina superior derecha\n\nagrega el enlace que recibiste del bot, haz clic en el botón de conexión",
 }
 
 arabic = {
@@ -165,11 +165,11 @@ arabic = {
     "inline_check_description": "انقر للتحقق من حالة المفتاح",
     "inline_check_error_description": "فشل في التحقق من المفتاح",
     "instruction": lambda name: f"{name}، اختر منصتك:",
-    "android": "اذهب إلى play market وقم بتنزيل عميل hiddify\n\nبعد تشغيل العميل، انقر على "+" في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
-    "ios": "اذهب إلى app store وقم بتنزيل عميل v2ray\n\nبعد تشغيل العميل، انقر على "+" في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
-    "windows": "اذهب إلى github وقم بتنزيل عميل hiddify\n\nبعد التثبيت، افتح الملف، في العميل المفتوح انقر على "+" في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
-    "macos": "اذهب إلى app store وقم بتنزيل عميل streisand\n\nبعد تشغيل العميل، انقر على "+" في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
-    "linux": "اذهب إلى github وقم بتنزيل عميل happ\n\nبعد التثبيت، افتح الملف، في العميل المفتوح انقر على "+" في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
+    "android": "اذهب إلى play market وقم بتنزيل عميل hiddify\n\nبعد تشغيل العميل، انقر على '+' في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
+    "ios": "اذهب إلى app store وقم بتنزيل عميل v2ray\n\nبعد تشغيل العميل، انقر على '+' في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
+    "windows": "اذهب إلى github وقم بتنزيل عميل hiddify\n\nبعد التثبيت، افتح الملف، في العميل المفتوح انقر على '+' في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
+    "macos": "اذهب إلى app store وقم بتنزيل عميل streisand\n\nبعد تشغيل العميل، انقر على '+' في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
+    "linux": "اذهب إلى github وقم بتنزيل عميل happ\n\nبعد التثبيت، افتح الملف، في العميل المفتوح انقر على '+' في الزاوية اليمنى العليا\n\nأضف الرابط الذي تلقته من البوت، انقر على زر الاتصال",
 }
 
 chinese = {
@@ -194,13 +194,12 @@ chinese = {
     "inline_check_description": "点击查看密钥状态",
     "inline_check_error_description": "检查密钥失败",
     "instruction": lambda name: f"{name}，选择你的平台:",
-    "android": "前往play市场下载hiddify客户端\n\n启动客户端后，点击右上角的"+"\n\n添加从机器人收到的链接，点击连接按钮",
-    "ios": "前往app store下载v2ray客户端\n\n启动客户端后，点击右上角的"+"\n\n添加从机器人收到的链接，点击连接按钮",
-    "windows": "前往github下载hiddify客户端\n\n安装后打开文件，在打开的客户端中点击右上角的"+"\n\n添加从机器人收到的链接，点击连接按钮",
-    "macos": "前往app store下载streisand客户端\n\n启动客户端后，点击右上角的"+"\n\n添加从机器人收到的链接，点击连接按钮",
-    "linux": "前往github下载happ客户端\n\n安装后打开文件，在打开的客户端中点击右上角的"+"\n\n添加从机器人收到的链接，点击连接按钮",
+    "android": "前往play市场下载hiddify客户端\n\n启动客户端后，点击右上角的'+'\n\n添加从机器人收到的链接，点击连接按钮",
+    "ios": "前往app store下载v2ray客户端\n\n启动客户端后，点击右上角的'+'\n\n添加从机器人收到的链接，点击连接按钮",
+    "windows": "前往github下载hiddify客户端\n\n安装后打开文件，在打开的客户端中点击右上角的'+'\n\n添加从机器人收到的链接，点击连接按钮",
+    "macos": "前往app store下载streisand客户端\n\n启动客户端后，点击右上角的'+'\n\n添加从机器人收到的链接，点击连接按钮",
+    "linux": "前往github下载happ客户端\n\n安装后打开文件，在打开的客户端中点击右上角的'+'\n\n添加从机器人收到的链接，点击连接按钮",
 }
-
 
 persian = {
     "start": lambda name, keys: f"سلام {name}\n\n/vpn - دریافت کلید\n/check [کلید] - بررسی وضعیت کلید\n/instruction - راهنمای اتصال VPN\n/donate - برای کمک مالی\n/api - نمونه‌های استفاده از API\n\nدر مجموع ربات <code>{keys}</code> کلید صادر کرده است",
@@ -224,15 +223,14 @@ persian = {
     "inline_check_description": "برای بررسی وضعیت کلید کلیک کنید",
     "inline_check_error_description": "بررسی کلید ناموفق بود",
     "instruction": lambda name: f"{name}، پلتفرم خود را انتخاب کنید:",
-    "android": "به بازار Play بروید و برنامه hiddify را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
-    "ios": "به App Store بروید و برنامه v2ray را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
-    "windows": "به GitHub بروید و برنامه hiddify را دانلود کنید\n\nپس از نصب، فایل را باز کنید، در برنامه باز شده روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
-    "macos": "به App Store بروید و برنامه streisand را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
-    "linux": "به GitHub بروید و برنامه happ را دانلود کنید\n\nپس از نصب، فایل را باز کنید، در برنامه باز شده روی "+" در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "android": "به بازار Play بروید و برنامه hiddify را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی '+' در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "ios": "به App Store بروید و برنامه v2ray را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی '+' در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "windows": "به GitHub بروید و برنامه hiddify را دانلود کنید\n\nپس از نصب، فایل را باز کنید، در برنامه باز شده روی '+' در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "macos": "به App Store بروید و برنامه streisand را دانلود کنید\n\nپس از راه‌اندازی برنامه، روی '+' در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
+    "linux": "به GitHub بروید و برنامه happ را دانلود کنید\n\nپس از نصب، فایل را باز کنید، در برنامه باز شده روی '+' در گوشه بالا سمت راست کلیک کنید\n\nلینکی که از ربات دریافت کردید را اضافه کنید، دکمه اتصال را بزنید",
 }
 
 def get_text(lang_code: str = None, text_key: str = "generation", **kwargs) -> str:
-
     languages = {
         "ru": russian,
         "en": english,
