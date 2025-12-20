@@ -1,24 +1,42 @@
+import io
 import random
 import asyncio
+from PIL import Image
 from datetime import datetime
 from aiogram.filters import Command
-from aiogram import types, Router
+from aiogram import types, Router, F
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State, StatesGroup
 
-from utils.logger import logger
 from handlers.texts import get_text
-from utils.files import counter_lock, get_banned_users, get_keys_count, write_keys_count
-from utils.api import get_key, check_key
+from captcha.image import ImageCaptcha
+from handlers.states import CaptchaState
+from utils.captcha import generate_captcha
 from keyboards.instruction import instruction_kb
-from config import DATA_FILE
+from config import DATA_FILE, ADMIN_ID, CHANNEL_ID
+from utils.api import get_key, check_key, parse_key
+from utils.logger import logger, check_subscription, send_logs
+from utils.settings import (
+    counter_lock,
+    get_banned_users,
+    get_keys_count,
+    write_keys_count,
+    add_user_to_banned,
+    write_captcha_enabled,
+    read_captcha_enabled,
+)
 
 router = Router()
+
+captcha_store = {}
 
 
 @router.message(Command("start"))
 async def start_cmd(message: types.Message):
     name = message.from_user.first_name or ""
+    username = message.from_user.username
 
-    user_id = message.from_user.id 
+    user_id = message.from_user.id
     banned_users = await get_banned_users(DATA_FILE)
 
     keys = await get_keys_count(DATA_FILE)
@@ -26,73 +44,94 @@ async def start_cmd(message: types.Message):
 
     if user_id in banned_users:
         await message.answer("faq")
+        await send_logs(message=message, log="attempt to launch the bot")
         return
     else:
         start_text = get_text(lang_code, "start", name=name, keys=keys)
         await message.answer(start_text, parse_mode="HTML")
 
+        await send_logs(message=message, log="bot start")
+
 
 @router.message(Command("vpn"))
-async def vpn_cmd(message: types.Message):
-    lang_code = message.from_user.language_code
-    generation_text = get_text(lang_code, "generation")
-    banned_users = await get_banned_users(DATA_FILE)   
-    user_id = message.from_user.id 
+async def vpn_cmd(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
+    lang_code = message.from_user.language_code or "en"
 
-    msg = await message.answer(generation_text)
+    banned_users = await get_banned_users(DATA_FILE)
+    if user_id in banned_users:
+        await message.answer("faq")
+        return
 
-    try:
-        if user_id in banned_users:
-            await msg.edit_text("faq")
-            return
+    is_subscribed = await check_subscription(message.bot, user_id, CHANNEL_ID)
+    if not is_subscribed:
+        await message.answer("to continue, subscribe to the @chuhandev channel.")
+        return
 
-        user_id_for_api = random.randint(100_000_000, 999_999_999)
-        response_data = await get_key(user_id_for_api)
+    captcha_enabled = await read_captcha_enabled()
 
-        if "error" in response_data:
-            error_text = get_text(lang_code, "error", error_msg=response_data["error"])
-            await msg.edit_text(error_text, parse_mode="HTML")
-            return
+    if captcha_enabled:
+        image_bytes, captcha_text = await generate_captcha()
+        captcha_store[user_id] = captcha_text
 
-        if response_data.get("result"):
-            timestamp = response_data["data"]["finish_at"]
-            dt = datetime.fromtimestamp(timestamp)
+        await state.update_data(
+            {
+                "user_id": user_id,
+                "lang_code": lang_code,
+                "message_id": message.message_id,
+            }
+        )
 
-            date = dt.strftime("%d.%m.%Y, %H:%M")
-            vpn_key = response_data["data"]["key"]
-            traffic = response_data["data"]["traffic_limit_gb"]
-            config_url = f"https://vpn-telegram.com/config/{vpn_key}"
+        await state.set_state(CaptchaState.waiting_captcha)
 
-            result_text = get_text(
-                lang_code, "key", config_url=config_url, date=date, traffic=traffic
-            )
+        await message.answer_photo(
+            photo=types.BufferedInputFile(image_bytes, filename="captcha.png"),
+            caption="enter the text from the image to get the key:",
+        )
 
-            await msg.edit_text(result_text, parse_mode="HTML")
+        await send_logs(message=message, log="key request with captcha")
+    else:
+        await parse_key(message)
 
-            async with counter_lock:
-                current_keys = await get_keys_count(DATA_FILE)
-                new_keys = current_keys + 1
-                await write_keys_count(new_keys, DATA_FILE)
 
-        else:
-            error_msg = response_data.get("message", "unknown error")
-            error_text = get_text(lang_code, "error", error_msg=error_msg)
-            await msg.edit_text(error_text, parse_mode="HTML")
+@router.message(CaptchaState.waiting_captcha)
+async def check_captcha(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
+    user_input = message.text.strip().upper()
 
-    except asyncio.TimeoutError:
-        error_text = get_text(lang_code, "error", error_msg="request timeout")
-        await msg.edit_text(error_text, parse_mode="HTML")
-        logger.error("API request timeout")
+    correct_text = captcha_store.get(user_id)
 
-    except Exception as e:
-        error_text = get_text(lang_code, "error", error_msg=str(e))
-        await msg.edit_text(error_text, parse_mode="HTML")
-        logger.error(f"Unexpected error: {e}")
+    if not correct_text:
+        await message.answer("the captcha is out of date, please use /vpn again")
+        await state.clear()
+        return
+
+    if user_input == correct_text:
+        if user_id in captcha_store:
+            del captcha_store[user_id]
+
+        await state.clear()
+
+        await parse_key(message)
+    else:
+        if user_id in captcha_store:
+            del captcha_store[user_id]
+
+        await add_user_to_banned(user_id)
+        await message.answer("incorrect captcha, u are blocked.")
+        await state.clear()
+
+        await message.bot.send_message(
+            ADMIN_ID,
+            f"user banned - failed captcha: {user_id} (@{message.from_user.username or 'no'})",
+        )
 
 
 @router.message(Command("donate"))
 async def donate_cmd(message: types.Message):
     lang_code = message.from_user.language_code
+    username = message.from_user.username
+    user_id = message.from_user.id
 
     donate_text = (
         f"<b>{get_text(lang_code, 'donate')}:</b>\n\n"
@@ -103,16 +142,20 @@ async def donate_cmd(message: types.Message):
 
     await message.answer(donate_text, parse_mode="HTML", disable_web_page_preview=True)
 
+    await send_logs(message=message, log="viewing donations")
+
 
 @router.message(Command("api"))
 async def api_cmd(message: types.Message):
-    
+
     lang_code = message.from_user.language_code
-    banned_users = await get_banned_users(DATA_FILE)    
+    banned_users = await get_banned_users(DATA_FILE)
+    username = message.from_user.username
     user_id = message.from_user.id
 
     if user_id in banned_users:
         await message.answer("faq")
+        await send_logs(message=message, log="attempt to view API")
         return
 
     api_text = (
@@ -155,6 +198,7 @@ async def api_cmd(message: types.Message):
     )
 
     await message.answer(api_text, parse_mode="Markdown")
+    await send_logs(message=message, log="view API")
 
 
 @router.message(Command("check"))
@@ -162,33 +206,26 @@ async def check_cmd(message: types.Message):
     user_id = message.from_user.id
     lang_code = message.from_user.language_code
     args = message.text.split(maxsplit=1)
-    banned_users = await get_banned_users(DATA_FILE)    
+    banned_users = await get_banned_users(DATA_FILE)
 
     if user_id in banned_users:
         await message.answer("faq")
         return
 
     if len(args) < 2:
-        await message.answer(
-            get_text(lang_code, "check_error"),
-            parse_mode="HTML"
-        )
+        await message.answer(get_text(lang_code, "check_error"), parse_mode="HTML")
         return
 
     config_url = args[1]
 
     generation_text = get_text(lang_code, "checking")
-    status_message = await message.answer(
-        generation_text,
-        parse_mode="HTML"
-    )
+    status_message = await message.answer(generation_text, parse_mode="HTML")
 
     result = await check_key(config_url)
 
     if result["used_gb"] is None or result["expires"] is None:
         await status_message.edit_text(
-            get_text(lang_code, "check_failed"),
-            parse_mode="HTML"
+            get_text(lang_code, "check_failed"), parse_mode="HTML"
         )
         return
 
@@ -204,16 +241,13 @@ async def check_cmd(message: types.Message):
         expires=expires,
     )
 
-    await status_message.edit_text(
-        check_text,
-        parse_mode="HTML"
-    )
+    await status_message.edit_text(check_text, parse_mode="HTML")
 
 
 @router.message(Command("instruction"))
 async def instruction_cmd(message: types.Message):
     user_id = message.from_user.id
-    banned_users = await get_banned_users(DATA_FILE)    
+    banned_users = await get_banned_users(DATA_FILE)
 
     name = message.from_user.first_name or "hey"
     lang_code = message.from_user.language_code
@@ -225,14 +259,12 @@ async def instruction_cmd(message: types.Message):
     instruction_text = get_text(lang_code, "instruction", name=name)
     await message.answer(instruction_text, reply_markup=instruction_kb)
 
-    
-
 
 @router.message()
 async def any_message(message: types.Message):
     user_id = message.from_user.id
     lang_code = message.from_user.language_code
-    banned_users = await get_banned_users(DATA_FILE)    
+    banned_users = await get_banned_users(DATA_FILE)
 
     if user_id in banned_users:
         await message.answer("faq")
