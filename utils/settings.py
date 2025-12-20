@@ -196,3 +196,35 @@ async def toggle_captcha_enabled() -> Tuple[bool, bool]:
         return success, new_state
     except Exception as e:
         return False, current
+
+ 
+async def read_subscription_check() -> bool:
+    try:
+        async with aiofiles.open(DATA_FILE, "r", encoding="utf-8") as f:
+            data = json.loads(await f.read())
+            return data.get("settings", {}).get("subscription_check_enabled", True)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return True
+
+
+async def read_logs_enabled() -> bool:
+    try:
+        async with aiofiles.open(DATA_FILE, "r", encoding="utf-8") as f:
+            data = json.loads(await f.read())
+            return data.get("settings", {}).get("logs_enabled", True)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return True
+
+
+async def write_subscription_check(enabled: bool) -> bool:
+    try:
+        async with aiofiles.open(DATA_FILE, "r", encoding="utf-8") as f:
+            data = json.loads(await f.read())
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = {"keys_count": 0, "banned_users": [], "settings": {}}
+
+    data.setdefault("settings", {})["subscription_check_enabled"] = enabled
+
+    async with aiofiles.open(DATA_FILE, "w", encoding="utf-8") as f:
+        await f.write(json.dumps(data, indent=4, ensure_ascii=False))
+    return True

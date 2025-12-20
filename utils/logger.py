@@ -6,6 +6,7 @@ import aiofiles
 from aiogram import Bot, types
 from aiogram.types import InlineQuery
 from aiogram.exceptions import TelegramBadRequest
+from utils.settings import read_subscription_check, read_logs_enabled, read_captcha_enabled
 
 from config import CHANNEL_ID, ADMIN_ID, DATA_FILE
 
