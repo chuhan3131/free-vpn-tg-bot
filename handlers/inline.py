@@ -1,19 +1,25 @@
-from datetime import datetime
 import uuid
 import random
 import asyncio
 from aiogram import Router
+from datetime import datetime
+from aiogram import types, Router, F
 from aiogram.types import (
     InlineQuery,
     InlineQueryResultArticle,
     InputTextMessageContent,
 )
 
-from utils.logger import logger
 from handlers.texts import get_text
-from utils.files import counter_lock, get_banned_users, get_keys_count, write_keys_count
+from config import DATA_FILE, ADMIN_ID
 from utils.api import get_key, check_key
-from config import DATA_FILE
+from utils.logger import logger, send_logs
+from utils.settings import (
+    counter_lock,
+    get_banned_users,
+    get_keys_count,
+    write_keys_count,
+)
 
 router = Router()
 
@@ -21,8 +27,10 @@ router = Router()
 @router.inline_query()
 async def inline_vpn_handler(inline_query: InlineQuery):
     lang_code = inline_query.from_user.language_code
-    query_text = inline_query.query.strip() 
+    query_text = inline_query.query.strip()
+    bot = inline_query.bot
 
+    username = inline_query.from_user.username
     user_id = inline_query.from_user.id
     banned_users = await get_banned_users(DATA_FILE)
 
@@ -37,6 +45,8 @@ async def inline_vpn_handler(inline_query: InlineQuery):
             ),
         )
         await inline_query.answer([banned_result], cache_time=1)
+        await send_logs(inline_query=inline_query, log="inline: trying to get the key")
+
         return
 
     try:
@@ -44,20 +54,18 @@ async def inline_vpn_handler(inline_query: InlineQuery):
             result_data = await check_key(query_text)
 
             if result_data["used_gb"] is None:
-                title = get_text(lang_code, 'inline_check_title')
-                description = get_text(lang_code, 'inline_check_error_description')
+                title = get_text(lang_code, "inline_check_title")
+                description = get_text(lang_code, "inline_check_error_description")
                 text = get_text(lang_code, "error", error_msg="failed to verify key")
             else:
-                traffic = result_data['used_gb']
+                traffic = result_data["used_gb"]
                 left = max(0, 5 - traffic)
-                expires = result_data['expires']
-                
-                title = get_text(lang_code, 'inline_check_title')
-                description = get_text(lang_code, 'inline_check_description')
-                text = get_text(lang_code, 'check',
-                    traffic=traffic, 
-                    left=left, 
-                    expires=expires
+                expires = result_data["expires"]
+
+                title = get_text(lang_code, "inline_check_title")
+                description = get_text(lang_code, "inline_check_description")
+                text = get_text(
+                    lang_code, "check", traffic=traffic, left=left, expires=expires
                 )
 
             result = InlineQueryResultArticle(
@@ -69,8 +77,10 @@ async def inline_vpn_handler(inline_query: InlineQuery):
                     parse_mode="HTML",
                 ),
             )
-            
+
             await inline_query.answer([result], cache_time=1)
+            await send_logs(inline_query=inline_query, log="inline: key check")
+
             return
 
         user_id_for_api = random.randint(100_000_000, 999_999_999)
@@ -129,10 +139,10 @@ async def inline_vpn_handler(inline_query: InlineQuery):
                 parse_mode="HTML",
             ),
         )
-        logger.error("Inline query timeout")
+        logger.error("inline query timeout")
 
     except Exception as e:
-        logger.error(f"Inline query error: {e}")
+        logger.error(f"inline query error: {e}")
         error_text = get_text(lang_code, "error", error_msg="internal server error")
         result = InlineQueryResultArticle(
             id=str(uuid.uuid4()),
@@ -144,4 +154,5 @@ async def inline_vpn_handler(inline_query: InlineQuery):
             ),
         )
 
+    await send_logs(inline_query=inline_query, log="inline: key sent")
     await inline_query.answer([result], cache_time=1)
