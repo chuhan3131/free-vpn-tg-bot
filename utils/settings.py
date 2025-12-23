@@ -228,3 +228,39 @@ async def write_subscription_check(enabled: bool) -> bool:
     async with aiofiles.open(DATA_FILE, "w", encoding="utf-8") as f:
         await f.write(json.dumps(data, indent=4, ensure_ascii=False))
     return True
+
+
+async def get_logs_state():
+    try:
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        return data.get('settings', {}).get('logs_enabled', False)
+
+    except Exception as e:
+        logger.error(f"error: {e}")
+        return False
+
+
+async def get_sub_state():
+    try:
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        return data.get('settings', {}).get('subscription_check_enabled', False)
+        
+    except Exception as e:
+        logger.error(f"error: {e}")
+        return False
+
+
+async def get_captcha_state():
+    try:
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        return data.get('settings', {}).get('captcha_enabled', False)
+        
+    except Exception as e:
+        logger.error(f"error: {e}")
+        return False
