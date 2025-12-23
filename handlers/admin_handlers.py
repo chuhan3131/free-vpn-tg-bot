@@ -12,6 +12,9 @@ from utils.settings import (
     toggle_subscription_check,
     toggle_logs_enabled,
     toggle_captcha_enabled,
+    get_captcha_state,
+    get_logs_state,
+    get_sub_state
 )
 
 router = Router()
@@ -27,13 +30,25 @@ async def admin_cmd(message: types.Message):
         await message.answer("faq")
         return
 
+    logs_enabled = await get_logs_state()
+    logs_status = "enabled" if logs_enabled else "disabled"
+
+    sub_enabled = await get_sub_state()
+    sub_status = "enabled" if sub_enabled else "disabled"
+
+    captcha_enabled = await get_captcha_state()
+    captcha_status = "enabled" if captcha_enabled else "disabled"
+
     await message.answer(
         "/ban [id] - ban user\n"
         "/unban [id] - unban user\n"
         "/ban_list - list of banned users\n"
         "/sub - turn on/off subscription\n"
         "/logs - turn on/off logs\n"
-        "/captcha - turn on/off captcha"
+        "/captcha - turn on/off captcha\n\n"
+        f"<blockquote>logs {logs_status}\n"
+        f"sub {sub_status}\n"
+        f"captcha {captcha_status}</blockquote>", parse_mode='HTML'
     )
 
 
